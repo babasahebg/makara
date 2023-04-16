@@ -94,11 +94,11 @@ module Makara
     end
 
     # we want to forward all private methods, since we could have kicked out from a private scenario
-    def method_missing(m, *args, &block)
+    def method_missing(m, *args, **kwargs, &block)
       if _makara_connection.respond_to?(m)
-        _makara_connection.public_send(m, *args, &block)
+        _makara_connection.public_send(m, *args, **kwargs, &block)
       else # probably private method
-        _makara_connection.__send__(m, *args, &block)
+        _makara_connection.__send__(m, *args, **kwargs, &block)
       end
     end
 

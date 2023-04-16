@@ -23,9 +23,9 @@ module Makara
         self.hijack_methods |= method_names
 
         method_names.each do |method_name|
-          define_method method_name do |*args, &block|
+          define_method method_name do |*args, **kwargs, &block|
             appropriate_connection(method_name, args) do |con|
-              con.send(method_name, *args, &block)
+              con.send(method_name, *args, **kwargs, &block)
             end
           end
         end
